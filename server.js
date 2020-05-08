@@ -32,18 +32,31 @@ app.get("/api/workouts", function (req, res) {
 
 app.post("/api/workouts", function (req, res) {
     db.Workout.create(req.body)
-        .then(dbLibrary => {
-            res.json(dbLibrary);
+        .then(workouts => {
+            res.json(workouts);
         })
         .catch(err => {
             res.json(err);
         });
 });
 
-app.put("/api/workouts/:id", (req, res) => {
-    db.Workout.updateOne({ _id: mongoose.Types.ObjectId(req.params.id) }, { $push: { exercises: req.body } })
-        .then(dbLibrary => {
-            res.json(dbLibrary);
+app.put("/api/workouts/:id", function (req, res) {
+    db.Workout.update({
+        _id: req.params.id
+    },
+        {
+            $push: {
+                exercises: req.body
+            },
+            $inc: {
+                totalDuration: req.body.duration
+            }
+        },
+        {
+            new: true
+        })
+        .then(workouts => {
+            res.json(workouts);
         })
         .catch(err => {
             res.json(err);
