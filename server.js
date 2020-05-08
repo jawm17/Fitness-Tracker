@@ -30,17 +30,25 @@ app.get("/api/workouts", function (req, res) {
         });
 });
 
-app.post("/api/workouts", function(req, res) {
+app.post("/api/workouts", function (req, res) {
     db.Workout.create(req.body)
-    .then(dbLibrary => {
-      res.json(dbLibrary);
-    })
-    .catch(err => {
-      res.json(err);
-    });
+        .then(dbLibrary => {
+            res.json(dbLibrary);
+        })
+        .catch(err => {
+            res.json(err);
+        });
 });
 
-
+app.put("/api/workouts/:id", (req, res) => {
+    db.Workout.updateOne({ _id: mongoose.Types.ObjectId(req.params.id) }, { $push: { exercises: req.body } })
+        .then(dbLibrary => {
+            res.json(dbLibrary);
+        })
+        .catch(err => {
+            res.json(err);
+        });
+});
 
 // HTML Routes -----------------------------------------------------------------------------------------------
 app.get("/", (req, res) => {
