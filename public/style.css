@@ -44,6 +44,10 @@ header h1 {
   transform: skewX(-2deg);
 }
 
+#dash {
+  float: right;
+}
+
 select {
   display: block;
   -moz-appearance: none;
