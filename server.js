@@ -40,6 +40,8 @@ app.post("/api/workouts", function(req, res) {
     });
 });
 
+
+
 // HTML Routes -----------------------------------------------------------------------------------------------
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "public/index.html"));
