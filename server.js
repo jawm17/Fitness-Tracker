@@ -17,7 +17,7 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workoutTracker", { useNewUrlParser: true });
+mongoose.connect("mongodb+srv://jawm17:koikoi5@cluster0-z8gnq.mongodb.net/test?retryWrites=true&w=majority", { useNewUrlParser: true });
 
 // API Routes ------------------------------------------------------------------------------------------------
 app.get("/api/workouts", function (req, res) {
