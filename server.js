@@ -63,6 +63,24 @@ app.put("/api/workouts/:id", function (req, res) {
         });
 });
 
+app.get("/api/workouts/range", function(req, res) {
+    var weekAgo = new Date();
+    var increment = weekAgo.getDate() - 7;
+    weekAgo.setDate(increment);
+
+    db.Workout.find({
+        day: {
+            $gt: weekAgo
+        }
+    })
+    .then(dbWorkout => {
+        res.json(dbWorkout);
+    })
+    .catch(err => {
+        res.json(err);
+    });
+});
+
 // HTML Routes -----------------------------------------------------------------------------------------------
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "public/index.html"));
